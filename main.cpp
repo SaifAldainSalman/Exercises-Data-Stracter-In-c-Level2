@@ -1,66 +1,70 @@
 #include <iostream>
 
 using namespace std;
-struct st_data {
 
-string name ;
-int id ;
-string sub[3] ;
-float grade[3];
+struct node {
+string name;
+string ip;
+string mac;
+node *next;
 };
-void input_st ( st_data &stu)
-{
-    cout << " enter name :";
-    cin >> stu.name;
-    cout << " enter id :";
-    cin >> stu.id;
+void creat_list(node *p){
+int n;
+node *tmp=NULL;
+for(;;){
+    cout <<"enter any number to contein or 0 for stop : ";
+    cin>> n;
+    if (n==0){
+        delete tmp->next;
+        tmp->next = NULL;
+        break;
+    }else
+      {
+       cout << "enter name oh computer : ";
+       cin>> p->name;
+       cout << "enter ip oh computer : ";
+       cin>> p->ip;
+       cout << "enter mac oh computer : ";
+       cin>> p->mac;
 
-    for (int i =0 ; i < 3 ; i++)
-    {
-    cout<< "----------------------------------";
-    cout << "\n enter a subject no  "<< i+1 <<" : ";
-    cin >> stu.sub[i];
-    cout << "\n enter a grade  : ";
-    cin >> stu.grade[i];
-    }
+       p->next = new node;
+       tmp=p;
+       p=p->next;
+      }
+      }
 }
+void print_list(node *p){
+    cout << "-------------------"<<endl;
+    cout << "   computer info \n";
+    cout << "-------------------"<<endl;
 
-void output_st ( st_data stu)
+    while(p!=NULL){
+        cout << " name of computer : "<<p->name<<endl;
+        cout << " ip of computer : "<<p->ip<<endl;
+        cout << " mac of computer : "<<p->mac<<endl;
+        cout << "-------------------"<<endl;
+
+            p = p->next;
+        }
+        cout << endl;
+}
+int counterlist ( node *p)
 {
-        cout << " name :" << stu.name << endl;
-        cout << " id :" << stu.id << endl;
-
-    for (int i =0 ; i < 3 ; i++)
+    int count=0 ;
+    while (p!=NULL)
     {
-    cout<< "\n----------------------------------\n";
-    cout << "  subject "<< stu.sub[i];
-    cout << "\n  grade : "<< stu.grade[i] <<" : ";
+        count ++;
+        p=p->next;
     }
-
-
+    return count ;
 }
 
 int main()
 {
-    int ns;
-    cout << " enter namers of student :";
-    cin >> ns ;
-    st_data stu [ns];
-    for (int i =0 ; i < ns ; i++)
-    {
-    cout<< "\==================================\n";
-    input_st(stu[i]);
-    }
-
-    for (int i =0 ; i < ns ; i++)
-    {
-    cout<< "\n==================================\n";
-    output_st(stu[i]);
-    }
-
-
-
-
+node *head =new node;
+creat_list(head);
+print_list(head);
+cout << "numbers of computer is :"<<counterlist(head);
 
     return 0;
 }
